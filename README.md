@@ -1,6 +1,6 @@
 ## DockerRecipes
 
-A series of docker recipes.
+A series of docker recipes for frequent use.
 
 Author: http://blankdots.com
 
