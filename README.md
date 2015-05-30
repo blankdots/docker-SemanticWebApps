@@ -10,8 +10,23 @@ In the WebVOWL after docker has been installed and configured run on separately:
 
 ```
 docker build -t blankdots/webvowl .
-docker image 
-docker run -p 8000:8000 blankdots/webvowl
+docker images
+docker run -p 192.168.59.103:49159:8000 -i -t blankdots/webvowl
+```
+In your browser go to:
+```
+192.168.59.103:49159
+```
+
+Cleaning all the containers and images:
+```
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+```
+
+Using bash inside the container:
+```
+docker run -i -t blankdots/webvowl bash
 ```
 
 ### Licenses
