@@ -16,7 +16,9 @@ RUN \
 	apt-get -y install npm && \
 	apt-get -y install git
 
-RUN apt-get clean
+#Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get autoremove -y
 
 # Make symbolic link to "node" since code was written for OSX and linux refers to "node" as "nodejs"
 RUN ln -s /usr/bin/nodejs /usr/bin/node

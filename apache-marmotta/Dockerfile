@@ -3,7 +3,7 @@
 
 FROM debian:jessie
 
-MAINTAINER Sergio FernÃ¡ndez <wikier@apache.org>
+MAINTAINER blankdots <blankdots@gmail.com>
 
 # general configuration
 ENV DEBIAN_FRONTEND noninteractive
@@ -47,5 +47,7 @@ RUN curl -X POST -H "Content-Type: application/json" -d '["jdbc:postgresql://loc
 RUN curl -X POST -H "Content-Type: application/json" -d '["$dbuser"]' $baseurl/config/data/database.user
 RUN curl -X POST -H "Content-Type: application/json" -d '["$dbpass"]' $baseurl/config/data/database.password
 RUN curl -X POST $baseurl/system/database/reinit
+
+VOLUME ["/data/db"]
 
 EXPOSE 8080
