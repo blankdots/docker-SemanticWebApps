@@ -1,13 +1,33 @@
-## DockerRecipes
+## DockerRecipe for WebVOWL
 
-A series of docker recipes for frequent use.
+Docker recipe for WebVOWL.
 
 Author: http://blankdots.com
 
 ### Build Instructions
 
-Each folder has build instructions for docker recipes individually. 
+In the WebVOWL after docker has been installed and configured run on separately:
 
+```
+docker build -t blankdots/webvowl .
+docker images
+docker run -p dockerip:49159:8000 -i -t blankdots/webvowl
+```
+In your browser go to:
+```
+dockerip:49159
+```
+
+Cleaning all the containers and images:
+```
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+```
+
+Using bash inside the container:
+```
+docker run -i -t blankdots/webvowl bash
+```
 
 ### Licenses
 
