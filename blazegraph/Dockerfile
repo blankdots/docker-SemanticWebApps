@@ -1,4 +1,10 @@
+#WebVOWL Dockerfile v 0.1.0
+
+# Base image
 FROM centos:centos7
+
+#Dockerfile maintainer
+MAINTAINER blankdots <blankdots@gmail.com>
 
 # Install Java
 RUN yum install -y java git ant
