@@ -4,21 +4,29 @@ FROM tomcat:7
 MAINTAINER blankdots <blankdots@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update
+# Install unzip
+RUN apt-get install -y unzip
+# Install curl
+RUN apt-get install -y curl
+RUN apt-get install -y openjdk-7-jdk
+
 # Taken from https://github.com/carlossg/docker-maven/blob/master/jdk-7/Dockerfile
-ENV MAVEN_VERSION 3.2.5
-RUN curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
-    && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
-    && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+WORKDIR /data/webprotege
 
-# TODO: decouple mongodb
-RUN apt-get -qq update && apt-get install --no-install-recommends -y -qq git openjdk-7-jdk mongodb
-RUN git clone https://github.com/protegeproject/webprotege /webprotege && cd /webprotege && mvn install
+RUN curl -L https://github.com/protegeproject/webprotege/releases/download/v2.5.0/webprotege-2.5.0.zip -o webprotege-2.5.0.zip
+
+RUN unzip -q webprotege-2.5.0.zip
+
+WORKDIR /
+
 RUN rm -rf /usr/local/tomcat/webapps/ROOT/* \
-    && mv /webprotege/target/webprotege-2.5.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT/ \
+    && mv /data/webprotege/webprotege-2.5.0.war /usr/local/tomcat/webapps/ROOT/ \
     && cd /usr/local/tomcat/webapps/ROOT/ \
-    && jar -xvf webprotege-2.5.1-SNAPSHOT.war
+    && jar -xvf webprotege-2.5.0.war
 
+EXPOSE 8080
 
-#COPY ./startup.sh /startup.sh
+#COPY ./startup.sh /startup.s
 #RUN chmod +x /startup.sh
 #CMD ["/startup.sh"]
