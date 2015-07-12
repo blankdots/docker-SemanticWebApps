@@ -1,53 +1,38 @@
-# Dockerfile for Apache Marmotta
-# source: https://issues.apache.org/jira/browse/MARMOTTA-588
+# apache marmotta
 
-FROM debian:jessie
+FROM tomcat:7
 
 MAINTAINER blankdots <blankdots@gmail.com>
 
-# general configuration
 ENV DEBIAN_FRONTEND noninteractive
-ENV baseurl http://localhost:8080/marmotta
-ENV dbname marmotta
-ENV dbuser marmotta
-ENV dbpass s3cr3t
-WORKDIR /code
 
-# make sure the package repository is up to date
 RUN apt-get update
+# Install unzip
+RUN apt-get install -y unzip
+# Install curl
+RUN apt-get install -y curl
+RUN apt-get install -y openjdk-7-jdk
 
-# install some required tools
-RUN apt-get install -y git maven openjdk-7-jdk postgresql curl gdebi
-RUN apt-get clean
+WORKDIR /data/marmotta
 
-# get the source code
-RUN git clone -b develop https://git-wip-us.apache.org/repos/asf/marmotta.git
-RUN cd marmotta && git pull
+RUN curl -L http://www.apache.org/dyn/closer.cgi/marmotta/3.3.0/apache-marmotta-3.3.0-webapp.zip -o apache-marmotta-3.3.0-webapp.zip
 
-# package from source code
-# RUN cd marmotta && mvn install -DskipTests -DskipITs -Djdeb.signing=false
-RUN cd marmotta/launchers/marmotta-webapp && mvn package -Djdeb.signing=false
+RUN unzip -q apache-marmotta-3.3.0-webapp.zip
 
-# install webapp
-RUN gdebi marmotta/launchers/marmotta-webapp/target/marmotta*.deb
+WORKDIR /
 
-# setup database
-RUN sudo -u postgres psql -c "CREATE USER $dbuser WITH PASSWORD '$dbpass'"
-RUN sudo -u postgres psql -c "CREATE DATABASE $dbname WITH OWNER $dbuser"
+RUN rm -rf /usr/local/tomcat/webapps/ROOT/* \
+    && mv /data/marmotta/apache-marmotta-3.3.0/marmotta.war /usr/local/tomcat/webapps/ROOT/ \
+    && cd /usr/local/tomcat/webapps/ROOT/ \
+    && jar -xvf marmotta.war
 
-# wait until it actually boots
-until [ "`curl --silent --show-error --connect-timeout 1 -I $baseurl/ | grep 'Coyote'`" != "" ]; do echo "marmotta not yet ready, sleeping for 10 seconds..." && sleep 10 done
+ENV MATMOTTA_HOME /var/run/marmotta
+ENV JAVA_OPTS -Djava.net.preferIPv4Stack=true -Xmx2048 -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+HeapDumpOnOutOfMemoryError
 
-# for development purposes disable security
-RUN curl -X POST -H "Content-Type: application/json" -d '["false"]' $baseurl/config/data/security.enabled
-
-# configure postgres as database
-RUN curl -X POST -H "Content-Type: application/json" -d '["postgres"]' $baseurl/config/data/database.type
-RUN curl -X POST -H "Content-Type: application/json" -d '["jdbc:postgresql://localhost:5432/$dbname?prepareThreshold=3"]' $baseurl/config/data/database.url
-RUN curl -X POST -H "Content-Type: application/json" -d '["$dbuser"]' $baseurl/config/data/database.user
-RUN curl -X POST -H "Content-Type: application/json" -d '["$dbpass"]' $baseurl/config/data/database.password
-RUN curl -X POST $baseurl/system/database/reinit
-
-VOLUME ["/data/db"]
+COPY system-config.properties /var/run/marmotta/system-config.properties
 
 EXPOSE 8080
+
+#COPY ./startup.sh /startup.s
+#RUN chmod +x /startup.sh
+#CMD ["/startup.sh"]

@@ -11,12 +11,13 @@ RUN apt-get install -y unzip
 RUN apt-get install -y curl
 RUN apt-get install -y openjdk-7-jdk
 
-# Taken from https://github.com/carlossg/docker-maven/blob/master/jdk-7/Dockerfile
 WORKDIR /data/webprotege
 
 RUN curl -L https://github.com/protegeproject/webprotege/releases/download/v2.5.0/webprotege-2.5.0.zip -o webprotege-2.5.0.zip
 
 RUN unzip -q webprotege-2.5.0.zip
+
+ENV JAVA_OPTS -Dwebprotege.data.directory=/usr/local/tomcat/webapps/ROOT/ -Dwebprotege.application.host=webprotege.stanford.edu
 
 WORKDIR /
 
