@@ -1,33 +1,22 @@
 # webprotege
-
-FROM tomcat:7
+FROM tomcat:8.0-jre8
 MAINTAINER blankdots <blankdots@gmail.com>
-ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update
-# Install unzip
-RUN apt-get install -y unzip
-# Install curl
-RUN apt-get install -y curl
-RUN apt-get install -y openjdk-7-jdk
+# Deployment
+WORKDIR /usr/local/tomcat/webapps
+RUN rm -rf *
+RUN mkdir -p /data/webprotege
+RUN wget -q --no-check-certificate -O webprotege.war https://github.com/protegeproject/webprotege/releases/download/v2.6.0/webprotege-2.6.0.war
+RUN unzip -q webprotege.war -d ROOT && rm webprotege.war
 
-WORKDIR /data/webprotege
-
-RUN curl -L https://github.com/protegeproject/webprotege/releases/download/v2.5.0/webprotege-2.5.0.zip -o webprotege-2.5.0.zip
-
-RUN unzip -q webprotege-2.5.0.zip
-
-ENV JAVA_OPTS -Dwebprotege.data.directory=/usr/local/tomcat/webapps/ROOT/ -Dwebprotege.application.host=webprotege.stanford.edu
-
-WORKDIR /
-
-RUN rm -rf /usr/local/tomcat/webapps/ROOT/* \
-    && mv /data/webprotege/webprotege-2.5.0.war /usr/local/tomcat/webapps/ROOT/ \
-    && cd /usr/local/tomcat/webapps/ROOT/ \
-    && jar -xvf webprotege-2.5.0.war
+# Add properties file to webprotege webapps folder
+RUN touch ROOT/webprotege.properties
+RUN echo \
+  webprotege.data.directory=/data/webprotege"\n" \
+  webprotege.application.host=localhost"\n" \
+  > ROOT/webprotege.properties
+RUN echo "\n"mongodb.host=mongodb"\n" >> ROOT/WEB-INF/classes/webprotege.properties
 
 EXPOSE 8080
 
-#COPY ./startup.sh /startup.s
-#RUN chmod +x /startup.sh
-#CMD ["/startup.sh"]
+CMD catalina.sh run
