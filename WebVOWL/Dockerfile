@@ -1,27 +1,9 @@
 #WebVOWL Dockerfile v 0.1.2
 
 # Base image
-FROM debian:jessie
+FROM mhart/alpine-node:base-6
 
-#Dockerfile maintainer
-MAINTAINER blankdots <blankdots@gmail.com>
-
-#export DEBIAN_FRONTEND noninteractive
-ENV DEBIAN_FRONTEND noninteractive
-
-#Install OS tools needed
-RUN \
-        apt-get update && \
-	apt-get -y install nodejs && \
-	apt-get -y install npm && \
-	apt-get -y install git
-
-#Cleanup
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN apt-get autoremove -y
-
-# Make symbolic link to "node" since code was written for OSX and linux refers to "node" as "nodejs"
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+MAINTAINER blankdots 
 
 #Expose port 8000 for WebVOWL
 #Expose port 35729 for livereload
@@ -36,8 +18,12 @@ RUN \
 # Set environment variables
 ENV HOME /root/webvowl
 
+
 # Define working directory
 WORKDIR /root/webvowl
+
+ADD converter.php .
+ADD 
 
 # Define default command
 CMD grunt webserver

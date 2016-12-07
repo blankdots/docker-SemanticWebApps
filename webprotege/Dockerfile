@@ -1,6 +1,6 @@
 # webprotege
 FROM tomcat:8.0-jre8
-MAINTAINER blankdots <blankdots@gmail.com>
+MAINTAINER blankdots
 
 ENV WEBPROTEGE_VERSION 2.6.0
 
