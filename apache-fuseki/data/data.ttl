@@ -1,0 +1,78 @@
+@prefix :     <http://mystore.com/books/>.
+@prefix owl:  <http://www.w3.org/2002/07/owl#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#>.
+
+# CLASSES
+
+:Book rdf:type owl:Class.
+
+:Person rdf:type  owl:Class.
+
+:Author rdfs:subClassOf :Person.
+
+:Reader rdfs:subClassOf :Person.
+
+[
+    rdf:type owl:AllDisjointClasses;
+    owl:members (
+        :Book
+        :Person
+    )
+].
+
+# DATA PROPERTIES
+
+:name
+  rdf:type owl:DatatypeProperty;
+  rdfs:domain [
+    rdf:type owl:Class;
+    owl:unionOf (:Book :Person);
+  ];
+  rdfs:range xsd:string;
+.
+
+:rating
+  rdf:type owl:DatatypeProperty;
+  rdfs:domain :Book;
+  rdfs:range xsd:positiveInteger;
+.
+
+:age
+  rdf:type owl:DatatypeProperty;
+  rdfs:domain :Person;
+  rdfs:range xsd:positiveInteger;
+.
+
+# OBJECT PROPERTIES
+
+:hasAuthor
+  rdf:type owl:ObjectProperty;
+  rdfs:domain :Book;
+  rdfs:range :Author;
+  owl:inverseOf :isAuthorOf;
+  rdfs:subPropertyOf :wasRecommendedBy;
+.
+
+:hasRead
+  rdf:type owl:ObjectProperty;
+  rdfs:domain :Reader;
+  rdfs:range :Book;
+  owl:inverseOf :wasReadBy;
+.
+
+:hasFriend
+  rdf:type owl:SymmetricProperty;
+  rdfs:domain :Person;
+  rdfs:range :Person;
+  owl:inverseOf :isFriendOf;
+.
+
+:hasRecommended
+  rdf:type owl:ObjectProperty;
+  rdfs:domain :Person;
+  rdfs:range :Book;
+  owl:inverseOf :wasRecommendedBy;
+  owl:propertyChainAxiom (:hasFriend :hasRecommended);
+.

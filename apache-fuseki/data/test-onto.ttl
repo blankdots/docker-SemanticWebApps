@@ -1,0 +1,1526 @@
+@prefix : <http://www.w3.org/2002/07/owl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/spec/index.rdf> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf2: <http://xmlns.com/foaf/0.1/> .
+@base <http://blankdots.com/open/personasonto.owl> .
+
+<http://blankdots.com/open/personasonto.owl> rdf:type :Ontology ;
+
+                                             :versionInfo "1.5"^^rdfs:Literal ;
+
+                                             dc:date "2015-05-24"^^xsd:date ;
+
+                                             rdfs:seeAlso "http://blankdots.com/open/schema" ;
+
+                                             rdfs:comment "PersonasOnto ontology incorporates concepts and properties used to model personas."@en ;
+
+                                             dc:rights "This ontology is distributed under Attribution-ShareAlike 4.0 Unported - http://creativecommons.org/licenses/by-sa/4.0/" ;
+
+                                             dc:creator "Stefan Negru" ;
+
+                                             dc:contributor "Sabin Buraga" ;
+
+                                             dc:title "PersonasOnto"@en ;
+
+                                             dc:description """The PersonasOnto is depicts the personas domain along with relating concept and properties. A persona is regarded as a user archetype which can be used to \"help guide decisions about product features, navigation, interactions, and even visual design\" (Goodwin, 2005).
+
+This ontology wants to address some of the issues regarding this methodology like how personas are reconciled with other information and who is responsible for interpreting and validating them."""@en ;
+
+                                             :imports <http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl> .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://blankdots.com/open/personasonto.owl#dependsOn
+
+<http://blankdots.com/open/personasonto.owl#dependsOn> rdf:type :ObjectProperty ;
+
+                                                       dc:description "The completion of a Task might depend on another Task, as several Tasks are part of a Scenario." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Task> ;
+
+                                                       rdfs:range <http://blankdots.com/open/personasonto.owl#Task> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#depiction
+
+<http://blankdots.com/open/personasonto.owl#depiction> rdf:type :ObjectProperty ;
+
+                                                       dc:description "A certain resource might depict a/any thing." ;
+
+                                                       rdfs:range <http://blankdots.com/open/personasonto.owl#Resource> ;
+
+                                                       rdfs:domain :Thing .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#depictsDocument
+
+<http://blankdots.com/open/personasonto.owl#depictsDocument> rdf:type :ObjectProperty ;
+
+                                                             rdfs:range <http://blankdots.com/open/personasonto.owl#Document> ;
+
+                                                             rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#depiction> ;
+
+                                                             rdfs:domain :Thing .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#depictsImage
+
+<http://blankdots.com/open/personasonto.owl#depictsImage> rdf:type :ObjectProperty ;
+
+                                                          rdfs:range <http://blankdots.com/open/personasonto.owl#Image> ;
+
+                                                          rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#depiction> ;
+
+                                                          rdfs:domain :Thing .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#depictsProduct
+
+<http://blankdots.com/open/personasonto.owl#depictsProduct> rdf:type :ObjectProperty ;
+
+                                                            rdfs:range <http://blankdots.com/open/personasonto.owl#Product> ;
+
+                                                            rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#depiction> ;
+
+                                                            rdfs:domain :Thing .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasAffectiveState
+
+<http://blankdots.com/open/personasonto.owl#hasAffectiveState> rdf:type :ObjectProperty ;
+
+                                                               dc:description "A person might have a certain affective state on a given moment or in a given context." ;
+
+                                                               rdfs:range <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                               rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasAffiliation
+
+<http://blankdots.com/open/personasonto.owl#hasAffiliation> rdf:type :ObjectProperty ;
+
+                                                            dc:description "A person might have a certain type of affiliation to an organization and might not be member of it." ;
+
+                                                            rdfs:range <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                            rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasAward
+
+<http://blankdots.com/open/personasonto.owl#hasAward> rdf:type :ObjectProperty ;
+
+                                                      dc:description "A person might have been awarded with some sort of distinction (depicted usually by a trophy or document)." ;
+
+                                                      rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                      rdfs:range <http://blankdots.com/open/personasonto.owl#Resource> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasBusinessGoal
+
+<http://blankdots.com/open/personasonto.owl#hasBusinessGoal> rdf:type :ObjectProperty ;
+
+                                                             rdfs:range <http://blankdots.com/open/personasonto.owl#BusinessGoals> ;
+
+                                                             rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#hasGoal> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasContext
+
+<http://blankdots.com/open/personasonto.owl#hasContext> rdf:type :ObjectProperty ;
+
+                                                        dc:description "A scenario is characterized by a certain context." ;
+
+                                                        rdfs:range <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Scenario> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasDisability
+
+<http://blankdots.com/open/personasonto.owl#hasDisability> rdf:type :ObjectProperty ;
+
+                                                           dc:description "A person might have a disability." ;
+
+                                                           rdfs:range <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                           rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasEndGoal
+
+<http://blankdots.com/open/personasonto.owl#hasEndGoal> rdf:type :ObjectProperty ;
+
+                                                        rdfs:range <http://blankdots.com/open/personasonto.owl#EndGoals> ;
+
+                                                        rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#hasGoal> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasExperienceGoal
+
+<http://blankdots.com/open/personasonto.owl#hasExperienceGoal> rdf:type :ObjectProperty ;
+
+                                                               rdfs:range <http://blankdots.com/open/personasonto.owl#ExperienceGoals> ;
+
+                                                               rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#hasGoal> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasGoal
+
+<http://blankdots.com/open/personasonto.owl#hasGoal> rdf:type :ObjectProperty ;
+
+                                                     dc:description "A person might have one or more (short/long term) goals depending on the context." ;
+
+                                                     rdfs:range <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                     rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                     :inverseOf <http://blankdots.com/open/personasonto.owl#isGoalOf> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasInfluence
+
+<http://blankdots.com/open/personasonto.owl#hasInfluence> rdf:type :ObjectProperty ;
+
+                                                          dc:description "The disability of a person migh have an effect on the affective state or personality on the person." ;
+
+                                                          rdfs:domain <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                          rdfs:range [ rdf:type :Class ;
+                                                                       :unionOf ( <http://blankdots.com/open/personasonto.owl#AffectiveState>
+                                                                                  <http://blankdots.com/open/personasonto.owl#Personality>
+                                                                                )
+                                                                     ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasInterest
+
+<http://blankdots.com/open/personasonto.owl#hasInterest> rdf:type :ObjectProperty ;
+
+                                                         dc:description "A person might be interested in a certain resource (product, application, document)." ;
+
+                                                         rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                         rdfs:range <http://blankdots.com/open/personasonto.owl#Resource> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasLifeGoal
+
+<http://blankdots.com/open/personasonto.owl#hasLifeGoal> rdf:type :ObjectProperty ;
+
+                                                         rdfs:range <http://blankdots.com/open/personasonto.owl#LifeGoals> ;
+
+                                                         rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#hasGoal> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasPersonaType
+
+<http://blankdots.com/open/personasonto.owl#hasPersonaType> rdf:type :ObjectProperty ;
+
+                                                            dc:description "The type of Persona: Primary, Secondary, Negative, Supplemental, Served or Customer." ;
+
+                                                            rdfs:range <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                            rdfs:domain [ rdf:type :Class ;
+                                                                          :unionOf ( <http://blankdots.com/open/personasonto.owl#Participant>
+                                                                                     <http://blankdots.com/open/personasonto.owl#Person>
+                                                                                   )
+                                                                        ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasPersonality
+
+<http://blankdots.com/open/personasonto.owl#hasPersonality> rdf:type :ObjectProperty ;
+
+                                                            dc:description "A person has a certain personality corresponding to Myers Briggs personality classification." ;
+
+                                                            rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                            rdfs:range <http://blankdots.com/open/personasonto.owl#Personality> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasPublications
+
+<http://blankdots.com/open/personasonto.owl#hasPublications> rdf:type :ObjectProperty ;
+
+                                                             dc:description "A person (of academic, journalistic profession) has published several documents." ;
+
+                                                             rdfs:range <http://blankdots.com/open/personasonto.owl#Document> ;
+
+                                                             rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasReview
+
+<http://blankdots.com/open/personasonto.owl#hasReview> rdf:type :ObjectProperty ;
+
+                                                       dc:description "A resource, scenario or usability test is described, reviewed via a document." ;
+
+                                                       rdfs:range <http://blankdots.com/open/personasonto.owl#Document> ;
+
+                                                       rdfs:domain [ rdf:type :Class ;
+                                                                     :unionOf ( <http://blankdots.com/open/personasonto.owl#Resource>
+                                                                                <http://blankdots.com/open/personasonto.owl#Scenario>
+                                                                                <http://blankdots.com/open/personasonto.owl#UsabilityTest>
+                                                                              )
+                                                                   ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasTask
+
+<http://blankdots.com/open/personasonto.owl#hasTask> rdf:type :ObjectProperty ;
+
+                                                     dc:description "A scenario has a set of tasks (or just one). (inverseproperty isTaskfor)" ;
+
+                                                     rdfs:domain <http://blankdots.com/open/personasonto.owl#Scenario> ;
+
+                                                     rdfs:range <http://blankdots.com/open/personasonto.owl#Task> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasTechnicalGoal
+
+<http://blankdots.com/open/personasonto.owl#hasTechnicalGoal> rdf:type :ObjectProperty ;
+
+                                                              rdfs:range <http://blankdots.com/open/personasonto.owl#TechnicalGoals> ;
+
+                                                              rdfs:subPropertyOf <http://blankdots.com/open/personasonto.owl#hasGoal> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#hasTopicOfInterest
+
+<http://blankdots.com/open/personasonto.owl#hasTopicOfInterest> rdf:type :ObjectProperty ;
+
+                                                                dc:description "A person might have a certain topic of interest which is correspondent to a cetain resource." ;
+
+                                                                rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                                rdfs:range <http://blankdots.com/open/personasonto.owl#Resource> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#includes
+
+<http://blankdots.com/open/personasonto.owl#includes> rdf:type :ObjectProperty ;
+
+                                                      dc:description "In order to describe context we consider the medium of interaction Tangible or Intangible which is included in a Place and/or Time." ;
+
+                                                      rdfs:domain [ rdf:type :Class ;
+                                                                    :unionOf ( <http://blankdots.com/open/personasonto.owl#Intangible>
+                                                                               <http://blankdots.com/open/personasonto.owl#Tangible>
+                                                                             )
+                                                                  ] ;
+
+                                                      rdfs:range [ rdf:type :Class ;
+                                                                   :unionOf ( <http://blankdots.com/open/personasonto.owl#Place>
+                                                                              <http://blankdots.com/open/personasonto.owl#Time>
+                                                                            )
+                                                                 ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#influencedBy
+
+<http://blankdots.com/open/personasonto.owl#influencedBy> rdf:type :ObjectProperty ;
+
+                                                          dc:description "The affective state of a person is influenced by the personality of that person. (inverse property influences)" ;
+
+                                                          rdfs:domain <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                          rdfs:range <http://blankdots.com/open/personasonto.owl#Personality> ;
+
+                                                          :inverseOf <http://blankdots.com/open/personasonto.owl#influences> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#influences
+
+<http://blankdots.com/open/personasonto.owl#influences> rdf:type :ObjectProperty ;
+
+                                                        dc:description "The personality influences the affective state o a person." ;
+
+                                                        rdfs:range <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Personality> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#involvedIn
+
+<http://blankdots.com/open/personasonto.owl#involvedIn> rdf:type :ObjectProperty ;
+
+                                                        dc:description "A participant (a certain user or observer) is involvedIn a scenario or Usability Test." ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Participant> ;
+
+                                                        rdfs:range [ rdf:type :Class ;
+                                                                     :unionOf ( <http://blankdots.com/open/personasonto.owl#Scenario>
+                                                                                <http://blankdots.com/open/personasonto.owl#UsabilityTest>
+                                                                              )
+                                                                   ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#isContextOf
+
+<http://blankdots.com/open/personasonto.owl#isContextOf> rdf:type :ObjectProperty ;
+
+                                                         dc:description "Inverse property of hasContext, isContextof represents the context belonging to a scenario." ;
+
+                                                         rdfs:domain <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                         rdfs:range <http://blankdots.com/open/personasonto.owl#Scenario> ;
+
+                                                         :inverseOf <http://blankdots.com/open/personasonto.owl#hasContext> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#isGoalOf
+
+<http://blankdots.com/open/personasonto.owl#isGoalOf> rdf:type :ObjectProperty ;
+
+                                                      dc:description "Inverse property of hasGoal, isGoalof represents the goal belonging to a person." ;
+
+                                                      rdfs:domain <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                      rdfs:range <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#isMemberOf
+
+<http://blankdots.com/open/personasonto.owl#isMemberOf> rdf:type :ObjectProperty ;
+
+                                                        dc:description "A person might be memeber of an organization." ;
+
+                                                        rdfs:range <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#isPartOfTest
+
+<http://blankdots.com/open/personasonto.owl#isPartOfTest> rdf:type :ObjectProperty ;
+
+                                                          dc:description "Usability tests have participants (observers and users), tasks and a scenario." ;
+
+                                                          rdfs:range <http://blankdots.com/open/personasonto.owl#UsabilityTest> ;
+
+                                                          rdfs:domain [ rdf:type :Class ;
+                                                                        :unionOf ( <http://blankdots.com/open/personasonto.owl#Participant>
+                                                                                   <http://blankdots.com/open/personasonto.owl#Scenario>
+                                                                                   <http://blankdots.com/open/personasonto.owl#Task>
+                                                                                 )
+                                                                      ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#isTaskFor
+
+<http://blankdots.com/open/personasonto.owl#isTaskFor> rdf:type :ObjectProperty ;
+
+                                                       dc:description "A certain task (or a series of tasks) is (are) part of a scenario." ;
+
+                                                       rdfs:range <http://blankdots.com/open/personasonto.owl#Scenario> ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Task> ;
+
+                                                       :inverseOf <http://blankdots.com/open/personasonto.owl#hasTask> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#knows
+
+<http://blankdots.com/open/personasonto.owl#knows> rdf:type :ObjectProperty ;
+
+                                                   dc:description "A person knows another person (similar to FOAF ontology)." ;
+
+                                                   rdfs:range <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                   rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#performs
+
+<http://blankdots.com/open/personasonto.owl#performs> rdf:type :ObjectProperty ;
+
+                                                      dc:description "A person performs a task in the usability test or when using a product/application." ;
+
+                                                      rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                      rdfs:range <http://blankdots.com/open/personasonto.owl#Task> .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#uses
+
+<http://blankdots.com/open/personasonto.owl#uses> rdf:type :ObjectProperty ;
+
+                                                  dc:description "A person makes use of a resource (document, image, product)." ;
+
+                                                  rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                  rdfs:range <http://blankdots.com/open/personasonto.owl#Resource> .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://blankdots.com/open/personasonto.owl#age
+
+<http://blankdots.com/open/personasonto.owl#age> rdf:type :DatatypeProperty ,
+                                                          :FunctionalProperty ;
+
+                                                 dc:description "Age of a person." ;
+
+                                                 rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                 rdfs:range xsd:float .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#birthday
+
+<http://blankdots.com/open/personasonto.owl#birthday> rdf:type :DatatypeProperty ;
+
+                                                      dc:description "Date of birth of a person." ;
+
+                                                      rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                      rdfs:range xsd:dateTime .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#details
+
+<http://blankdots.com/open/personasonto.owl#details> rdf:type :DatatypeProperty ,
+                                                              :FunctionalProperty ;
+
+                                                     dc:description "Any kind of details." ;
+
+                                                     rdfs:range rdfs:Literal ;
+
+                                                     rdfs:domain :Thing .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#experienceLevel
+
+<http://blankdots.com/open/personasonto.owl#experienceLevel> rdf:type :DatatypeProperty ,
+                                                                      :FunctionalProperty ;
+
+                                                             rdfs:comment "It is different from technical level, because a person might be experienced in some product or application but does not have technical skills." ;
+
+                                                             dc:description """Reflects the experience level of a persona with the application
+or product; proposed levels: Beginner, Intermediate, Advanced.""" ;
+
+                                                             rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                             :propertyDisjointWith <http://blankdots.com/open/personasonto.owl#technicalLevel> ;
+
+                                                             rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#familyName
+
+<http://blankdots.com/open/personasonto.owl#familyName> rdf:type :DatatypeProperty ,
+                                                                 :FunctionalProperty ;
+
+                                                        dc:description "Family or Last name of a person." ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                        :propertyDisjointWith <http://blankdots.com/open/personasonto.owl#firstName> ;
+
+                                                        rdfs:range xsd:string .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#firstName
+
+<http://blankdots.com/open/personasonto.owl#firstName> rdf:type :DatatypeProperty ,
+                                                                :FunctionalProperty ;
+
+                                                       dc:description "First or Given name of a person." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                       rdfs:range xsd:string .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#frustrationPoint
+
+<http://blankdots.com/open/personasonto.owl#frustrationPoint> rdf:type :DatatypeProperty ;
+
+                                                              dc:description "Elements of a UI/UX or certain characteristics that frustrate the user or (s)he sees as pain points." ;
+
+                                                              rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                              rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#gender
+
+<http://blankdots.com/open/personasonto.owl#gender> rdf:type :DatatypeProperty ,
+                                                             :FunctionalProperty ;
+
+                                                    dc:description "Gender of a person." ;
+
+                                                    rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                    rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#interactionCount
+
+<http://blankdots.com/open/personasonto.owl#interactionCount> rdf:type :DatatypeProperty ;
+
+                                                              dc:description "A count of specific user actions (comments, facebook likes, tweets, etc.)." ;
+
+                                                              rdfs:domain <http://blankdots.com/open/personasonto.owl#InteractiveTask> ;
+
+                                                              rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#location
+
+<http://blankdots.com/open/personasonto.owl#location> rdf:type :DatatypeProperty ;
+
+                                                      dc:description "Geographic location (City/Country)." ;
+
+                                                      rdfs:range xsd:string ;
+
+                                                      rdfs:domain [ rdf:type :Class ;
+                                                                    :unionOf ( <http://blankdots.com/open/personasonto.owl#Organization>
+                                                                               <http://blankdots.com/open/personasonto.owl#Place>
+                                                                             )
+                                                                  ] .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#mainPoint
+
+<http://blankdots.com/open/personasonto.owl#mainPoint> rdf:type :DatatypeProperty ;
+
+                                                       dc:description "Main points are specific elements to each persona category." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                       rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#maxBustSize
+
+<http://blankdots.com/open/personasonto.owl#maxBustSize> rdf:type :DatatypeProperty ,
+                                                                  :FunctionalProperty ;
+
+                                                         dc:description "Maximum Bust Size." ;
+
+                                                         rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                         rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#maxFeetSize
+
+<http://blankdots.com/open/personasonto.owl#maxFeetSize> rdf:type :DatatypeProperty ,
+                                                                  :FunctionalProperty ;
+
+                                                         dc:description "Maximum Feet Size." ;
+
+                                                         rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                         rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#maxHeight
+
+<http://blankdots.com/open/personasonto.owl#maxHeight> rdf:type :DatatypeProperty ,
+                                                                :FunctionalProperty ;
+
+                                                       dc:description "Maximum Height." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                       rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#maxWaistSize
+
+<http://blankdots.com/open/personasonto.owl#maxWaistSize> rdf:type :DatatypeProperty ,
+                                                                   :FunctionalProperty ;
+
+                                                          dc:description "Maximum Waist Size." ;
+
+                                                          rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                          rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#maxWeight
+
+<http://blankdots.com/open/personasonto.owl#maxWeight> rdf:type :DatatypeProperty ,
+                                                                :FunctionalProperty ;
+
+                                                       dc:description "Maximum Weight." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                       rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#minBustSize
+
+<http://blankdots.com/open/personasonto.owl#minBustSize> rdf:type :DatatypeProperty ,
+                                                                  :FunctionalProperty ;
+
+                                                         dc:description "Minimum Bust Size." ;
+
+                                                         rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                         rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#minFeetSize
+
+<http://blankdots.com/open/personasonto.owl#minFeetSize> rdf:type :DatatypeProperty ,
+                                                                  :FunctionalProperty ;
+
+                                                         dc:description "Minimum Feet Size." ;
+
+                                                         rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                         rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#minHeight
+
+<http://blankdots.com/open/personasonto.owl#minHeight> rdf:type :DatatypeProperty ,
+                                                                :FunctionalProperty ;
+
+                                                       dc:description "Minimum Height." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                       rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#minWaistSize
+
+<http://blankdots.com/open/personasonto.owl#minWaistSize> rdf:type :DatatypeProperty ,
+                                                                   :FunctionalProperty ;
+
+                                                          dc:description "Minimum Waist Size." ;
+
+                                                          rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                          rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#minWeight
+
+<http://blankdots.com/open/personasonto.owl#minWeight> rdf:type :DatatypeProperty ,
+                                                                :FunctionalProperty ;
+
+                                                       dc:description "Minimum Weight." ;
+
+                                                       rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                       rdfs:range xsd:positiveInteger .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#myerBriggs
+
+<http://blankdots.com/open/personasonto.owl#myerBriggs> rdf:type :DatatypeProperty ,
+                                                                 :FunctionalProperty ;
+
+                                                        dc:description "Inspired by FOAF Myers Briggs personality classification which includes 16 4-letter textual codes." ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Personality> ;
+
+                                                        rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#scenarioName
+
+<http://blankdots.com/open/personasonto.owl#scenarioName> rdf:type :DatatypeProperty ,
+                                                                   :FunctionalProperty ;
+
+                                                          dc:description "The name of each scenario." ;
+
+                                                          rdfs:domain <http://blankdots.com/open/personasonto.owl#Scenario> ;
+
+                                                          rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#sensorData
+
+<http://blankdots.com/open/personasonto.owl#sensorData> rdf:type :DatatypeProperty ;
+
+                                                        dc:description "Data recieved from a sensor (could be a number, temperature, etc.)." ;
+
+                                                        rdfs:domain <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                        rdfs:range xsd:double .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#status
+
+<http://blankdots.com/open/personasonto.owl#status> rdf:type :DatatypeProperty ,
+                                                             :FunctionalProperty ;
+
+                                                    dc:description "Marital status or a person." ;
+
+                                                    rdfs:domain <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                    rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#tagline
+
+<http://blankdots.com/open/personasonto.owl#tagline> rdf:type :DatatypeProperty ,
+                                                              :FunctionalProperty ;
+
+                                                     dc:description "A tagline specific to a persona." ;
+
+                                                     rdfs:domain <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                     rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#taskName
+
+<http://blankdots.com/open/personasonto.owl#taskName> rdf:type :DatatypeProperty ;
+
+                                                      dc:description "A generic (short) name for a task." ;
+
+                                                      rdfs:domain <http://blankdots.com/open/personasonto.owl#Task> ;
+
+                                                      rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#technicalLevel
+
+<http://blankdots.com/open/personasonto.owl#technicalLevel> rdf:type :DatatypeProperty ,
+                                                                     :FunctionalProperty ;
+
+                                                            dc:description "Reflects the technical level of a person." ;
+
+                                                            rdfs:comment "If a person has technical or programming skills it's relevant." ;
+
+                                                            rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                            rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#title
+
+<http://blankdots.com/open/personasonto.owl#title> rdf:type :DatatypeProperty ;
+
+                                                   dc:description "Academic, professional or military prefix/suffix for a person. " ;
+
+                                                   rdfs:domain <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                   rdfs:range rdfs:Literal .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#userRole
+
+<http://blankdots.com/open/personasonto.owl#userRole> rdf:type :DatatypeProperty ;
+
+                                                      dc:description "The role of the user in the application/product." ;
+
+                                                      rdfs:domain <http://blankdots.com/open/personasonto.owl#Participant> ;
+
+                                                      rdfs:range rdfs:Literal .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://blankdots.com/open/personasonto.owl#AffectiveState
+
+<http://blankdots.com/open/personasonto.owl#AffectiveState> rdf:type :Class ;
+
+                                                            :equivalentClass [ rdf:type :Restriction ;
+                                                                               :onProperty <http://blankdots.com/open/personasonto.owl#influencedBy> ;
+                                                                               :someValuesFrom <http://blankdots.com/open/personasonto.owl#Personality>
+                                                                             ] ;
+
+                                                            rdfs:subClassOf :Thing ;
+
+                                                            dc:description "The affective state of a person at a certain moment and in a certain Context." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#BusinessGoals
+
+<http://blankdots.com/open/personasonto.owl#BusinessGoals> rdf:type :Class ;
+
+                                                           rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                           dc:description "Business goals represent the goals of the organization the persons works for." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Context
+
+<http://blankdots.com/open/personasonto.owl#Context> rdf:type :Class ;
+
+                                                     rdfs:subClassOf :Thing ;
+
+                                                     dc:description "The Context in which a scenario takes place." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Corporation
+
+<http://blankdots.com/open/personasonto.owl#Corporation> rdf:type :Class ;
+
+                                                         rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                         dc:description "A business corporation. " .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#CustomerType
+
+<http://blankdots.com/open/personasonto.owl#CustomerType> rdf:type :Class ;
+
+                                                          rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                          dc:description "Are not the end user but the customer of the product, but might be the person making, buying decisions." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#DevelopmentDisability
+
+<http://blankdots.com/open/personasonto.owl#DevelopmentDisability> rdf:type :Class ;
+
+                                                                   rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                                   dc:description "Any disability that related to growth and development problems." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Disability
+
+<http://blankdots.com/open/personasonto.owl#Disability> rdf:type :Class ;
+
+                                                        rdfs:subClassOf :Thing ;
+
+                                                        dc:description "A person’s disabilities mental and/or physical." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Document
+
+<http://blankdots.com/open/personasonto.owl#Document> rdf:type :Class ;
+
+                                                      rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Resource> ;
+
+                                                      dc:description "A paper or digital document (web-page, text document etc.)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#EducationalOrganization
+
+<http://blankdots.com/open/personasonto.owl#EducationalOrganization> rdf:type :Class ;
+
+                                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                                     dc:description "An educational organization. " .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Emotion
+
+<http://blankdots.com/open/personasonto.owl#Emotion> rdf:type :Class ;
+
+                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                     dc:description "Emotion encompasses physiological, affective, behavioral, andcognitive components." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#EndGoals
+
+<http://blankdots.com/open/personasonto.owl#EndGoals> rdf:type :Class ;
+
+                                                      rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                      dc:description "End goals represent the user’s motivation for performing the tasks associated with using a specific product." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#ExperienceGoals
+
+<http://blankdots.com/open/personasonto.owl#ExperienceGoals> rdf:type :Class ;
+
+                                                             rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                             dc:description "Experience goals are simple, universal, and personal." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Feeling
+
+<http://blankdots.com/open/personasonto.owl#Feeling> rdf:type :Class ;
+
+                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                     dc:description "Feelings relate more to a property associated to and object or being, than to a person’s state of mind." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Goals
+
+<http://blankdots.com/open/personasonto.owl#Goals> rdf:type :Class ;
+
+                                                   rdfs:subClassOf :Thing ;
+
+                                                   dc:description "The goals of a Persona. The goals are divided accordingly, depending on each persona type." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#GovermentOrganization
+
+<http://blankdots.com/open/personasonto.owl#GovermentOrganization> rdf:type :Class ;
+
+                                                                   rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                                   dc:description "A governmental organization or agency. " .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Group
+
+<http://blankdots.com/open/personasonto.owl#Group> rdf:type :Class ;
+
+                                                   rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                   dc:description "Any kind of (small or large) group a person might be part of (book club)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#GustatoryImpairment
+
+<http://blankdots.com/open/personasonto.owl#GustatoryImpairment> rdf:type :Class ;
+
+                                                                 rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                                 dc:description "Impairment of the sense of smell and taste." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#HearingImpairment
+
+<http://blankdots.com/open/personasonto.owl#HearingImpairment> rdf:type :Class ;
+
+                                                               rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                               dc:description "Conditions in which persons are fully or partially unable to detect or perceive at least some frequencies of sound." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Image
+
+<http://blankdots.com/open/personasonto.owl#Image> rdf:type :Class ;
+
+                                                   rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Resource> ;
+
+                                                   dc:description "An image, which might be used to describe a product or person." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Intangible
+
+<http://blankdots.com/open/personasonto.owl#Intangible> rdf:type :Class ;
+
+                                                        rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                        dc:description "A context might be described by an Intangible enviroment (Operating System, Application etc. -- virtual world)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#IntellectualImpairment
+
+<http://blankdots.com/open/personasonto.owl#IntellectualImpairment> rdf:type :Class ;
+
+                                                                    rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                                    dc:description "This type of impairment ranges from mental retardation to cognitive deficits too mild or too specific." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#InteractiveTask
+
+<http://blankdots.com/open/personasonto.owl#InteractiveTask> rdf:type :Class ;
+
+                                                             rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Task> ;
+
+                                                             :disjointWith <http://blankdots.com/open/personasonto.owl#NonInteractiveTask> ;
+
+                                                             dc:description "InteractiveTask could be certain action performed by a person (not too often by a machine)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#LifeGoals
+
+<http://blankdots.com/open/personasonto.owl#LifeGoals> rdf:type :Class ;
+
+                                                       rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                       dc:description "Life goals represent personal aspirations of the user that typically go beyond the context of the product being designed." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#MediumBusiness
+
+<http://blankdots.com/open/personasonto.owl#MediumBusiness> rdf:type :Class ;
+
+                                                            rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                            dc:description "A particular medium sized business or branch of an organization. ( restaurant, medical practice etc.)" .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#MentalEmotionalDisorder
+
+<http://blankdots.com/open/personasonto.owl#MentalEmotionalDisorder> rdf:type :Class ;
+
+                                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                                     dc:description "Any mental disorder/illness described as a psychological or behavioral pattern associated with distress or disability that occurs in an person." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Mood
+
+<http://blankdots.com/open/personasonto.owl#Mood> rdf:type :Class ;
+
+                                                  rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#AffectiveState> ;
+
+                                                  dc:description "Are not directed at any object in particular and are experienced as more diffuse, global, and general state." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#NGO
+
+<http://blankdots.com/open/personasonto.owl#NGO> rdf:type :Class ;
+
+                                                 rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                 dc:description "A Non-Governamental Organization." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#NegativeType
+
+<http://blankdots.com/open/personasonto.owl#NegativeType> rdf:type :Class ;
+
+                                                          rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                          dc:description "Are used to remind and communicate, who is NOT the target of the design." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#NonInteractiveTask
+
+<http://blankdots.com/open/personasonto.owl#NonInteractiveTask> rdf:type :Class ;
+
+                                                                rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Task> ;
+
+                                                                dc:description "NonInteractiveTask could be a machine response to that action." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Organization
+
+<http://blankdots.com/open/personasonto.owl#Organization> rdf:type :Class ;
+
+                                                          rdfs:subClassOf :Thing ;
+
+                                                          dc:description "The type of Organization a Person belongs to." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Participant
+
+<http://blankdots.com/open/personasonto.owl#Participant> rdf:type :Class ;
+
+                                                         rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                         dc:description "A person that participates in the usability test. Usualy a participant has a diresct correspondent to a Persona type." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Person
+
+<http://blankdots.com/open/personasonto.owl#Person> rdf:type :Class ;
+
+                                                    rdfs:subClassOf :Thing ;
+
+                                                    dc:description "A person represents an individual, most likely a human." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Persona
+
+<http://blankdots.com/open/personasonto.owl#Persona> rdf:type :Class ;
+
+                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Person> ;
+
+                                                     dc:description "As a subclass of Person, the Persona class could be regarded of being a separate identity of a person, although it has the same usage." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#PersonaType
+
+<http://blankdots.com/open/personasonto.owl#PersonaType> rdf:type :Class ;
+
+                                                         rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Persona> ;
+
+                                                         dc:description "Each Persona is classified by a PersonaType and a Person might fit into several PersonaTypes." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Personality
+
+<http://blankdots.com/open/personasonto.owl#Personality> rdf:type :Class ;
+
+                                                         :equivalentClass [ rdf:type :Restriction ;
+                                                                            :onProperty <http://blankdots.com/open/personasonto.owl#influences> ;
+                                                                            :someValuesFrom <http://blankdots.com/open/personasonto.owl#AffectiveState>
+                                                                          ] ;
+
+                                                         rdfs:subClassOf :Thing ;
+
+                                                         dc:description "The MyersBriggs personality of a person." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Place
+
+<http://blankdots.com/open/personasonto.owl#Place> rdf:type :Class ;
+
+                                                   rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                   dc:description "The appropriate Place which describes the Context. " ;
+
+                                                   rdfs:comment "A Context might only be described by a certain Place." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#PrimaryType
+
+<http://blankdots.com/open/personasonto.owl#PrimaryType> rdf:type :Class ;
+
+                                                         rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                         dc:description "\"The goal is to find a single persona from the set whose needs and goals can be completely and happily satisfied by a single interface without disenfranchising any of the other personas\", About Face 2.0, Cooper, pg. 71. This is the Primary Persona Type" .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Product
+
+<http://blankdots.com/open/personasonto.owl#Product> rdf:type :Class ;
+
+                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Resource> ;
+
+                                                     dc:description "A physical product or a digital product (Software Application)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Resource
+
+<http://blankdots.com/open/personasonto.owl#Resource> rdf:type :Class ;
+
+                                                      rdfs:subClassOf :Thing ;
+
+                                                      dc:description "Type of resources available, physical or digital." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Scenario
+
+<http://blankdots.com/open/personasonto.owl#Scenario> rdf:type :Class ;
+
+                                                      rdfs:subClassOf :Thing ;
+
+                                                      dc:description "A series of tasks the user performs in a certain context." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#SecondaryType
+
+<http://blankdots.com/open/personasonto.owl#SecondaryType> rdf:type :Class ;
+
+                                                           rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                           dc:description "The secondary persona's goals and needs can mostly be met by focusing on the primary persona. Still, there are a few goals specific to them that are not a priority for the primary persona." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#ServedType
+
+<http://blankdots.com/open/personasonto.owl#ServedType> rdf:type :Class ;
+
+                                                        rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                        dc:description "Do not directly use the product you are designing but they are somehow affected by the system." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#SmallBusiness
+
+<http://blankdots.com/open/personasonto.owl#SmallBusiness> rdf:type :Class ;
+
+                                                           rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                           dc:description "A particular small business like a local shop or market (usually under 5 employees)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#SomatosensoryImpairment
+
+<http://blankdots.com/open/personasonto.owl#SomatosensoryImpairment> rdf:type :Class ;
+
+                                                                     rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                                     dc:description "Insensitivity to stimuli such as touch, heat, cold, and pain." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#SportsTeam
+
+<http://blankdots.com/open/personasonto.owl#SportsTeam> rdf:type :Class ;
+
+                                                        rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Organization> ;
+
+                                                        dc:description "A sports team (football, basketball, bowling etc.)." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#SupplementalType
+
+<http://blankdots.com/open/personasonto.owl#SupplementalType> rdf:type :Class ;
+
+                                                              rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#PersonaType> ;
+
+                                                              dc:description "Needs are completely satisfied by one of the primary interfaces yet they are part of the set or personas to ensure comprehensive representation." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Tangible
+
+<http://blankdots.com/open/personasonto.owl#Tangible> rdf:type :Class ;
+
+                                                      rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                      dc:description "A context might be described by an Tangible enviroment - real world." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Task
+
+<http://blankdots.com/open/personasonto.owl#Task> rdf:type :Class ;
+
+                                                  rdfs:subClassOf :Thing ;
+
+                                                  dc:description "Tasks performed by a Person in a Scenario." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#TechnicalGoals
+
+<http://blankdots.com/open/personasonto.owl#TechnicalGoals> rdf:type :Class ;
+
+                                                            rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Goals> ;
+
+                                                            dc:description """Technical goals reflect technical aspects regarding an application/product for example: run in a variety of browser, data privacy
+etc.""" .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#Time
+
+<http://blankdots.com/open/personasonto.owl#Time> rdf:type :Class ;
+
+                                                  rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Context> ;
+
+                                                  rdfs:comment "A Context might only be described at a certain Time." ;
+
+                                                  dc:description "The appropriate Time which describes the Context. " .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#UsabilityTest
+
+<http://blankdots.com/open/personasonto.owl#UsabilityTest> rdf:type :Class ;
+
+                                                           rdfs:subClassOf :Thing ;
+
+                                                           dc:description "A usability test evaluates the usability of a certain Product in a Scenario." .
+
+
+
+###  http://blankdots.com/open/personasonto.owl#VisualImpairment
+
+<http://blankdots.com/open/personasonto.owl#VisualImpairment> rdf:type :Class ;
+
+                                                              rdfs:subClassOf <http://blankdots.com/open/personasonto.owl#Disability> ;
+
+                                                              dc:description "Visual impairment refers to vision loss to such a degree as a person needs an additional support to get through its surroundings." .
+
+
+
+
+
+#################################################################
+#
+#    General axioms
+#
+#################################################################
+
+
+[ rdf:type :AllDisjointClasses ;
+  :members ( <http://blankdots.com/open/personasonto.owl#Corporation>
+             <http://blankdots.com/open/personasonto.owl#EducationalOrganization>
+             <http://blankdots.com/open/personasonto.owl#GovermentOrganization>
+             <http://blankdots.com/open/personasonto.owl#Group>
+             <http://blankdots.com/open/personasonto.owl#MediumBusiness>
+             <http://blankdots.com/open/personasonto.owl#NGO>
+             <http://blankdots.com/open/personasonto.owl#SmallBusiness>
+             <http://blankdots.com/open/personasonto.owl#SportsTeam>
+           )
+] .
+[ rdf:type :AllDisjointProperties ;
+  :members ( <http://blankdots.com/open/personasonto.owl#hasBusinessGoal>
+             <http://blankdots.com/open/personasonto.owl#hasEndGoal>
+             <http://blankdots.com/open/personasonto.owl#hasExperienceGoal>
+             <http://blankdots.com/open/personasonto.owl#hasLifeGoal>
+             <http://blankdots.com/open/personasonto.owl#hasTechnicalGoal>
+           )
+] .
+[ rdf:type :AllDisjointClasses ;
+  :members ( <http://blankdots.com/open/personasonto.owl#AffectiveState>
+             <http://blankdots.com/open/personasonto.owl#Context>
+             <http://blankdots.com/open/personasonto.owl#Disability>
+             <http://blankdots.com/open/personasonto.owl#Goals>
+             <http://blankdots.com/open/personasonto.owl#Organization>
+             <http://blankdots.com/open/personasonto.owl#Person>
+             <http://blankdots.com/open/personasonto.owl#Personality>
+             <http://blankdots.com/open/personasonto.owl#Resource>
+             <http://blankdots.com/open/personasonto.owl#Scenario>
+             <http://blankdots.com/open/personasonto.owl#Task>
+             <http://blankdots.com/open/personasonto.owl#UsabilityTest>
+           )
+] .
+[ rdf:type :AllDisjointClasses ;
+  :members ( <http://blankdots.com/open/personasonto.owl#CustomerType>
+             <http://blankdots.com/open/personasonto.owl#NegativeType>
+             <http://blankdots.com/open/personasonto.owl#PrimaryType>
+             <http://blankdots.com/open/personasonto.owl#SecondaryType>
+             <http://blankdots.com/open/personasonto.owl#ServedType>
+             <http://blankdots.com/open/personasonto.owl#SupplementalType>
+           )
+] .
+[ rdf:type :AllDisjointProperties ;
+  :members ( <http://blankdots.com/open/personasonto.owl#maxBustSize>
+             <http://blankdots.com/open/personasonto.owl#maxFeetSize>
+             <http://blankdots.com/open/personasonto.owl#maxHeight>
+             <http://blankdots.com/open/personasonto.owl#maxWaistSize>
+             <http://blankdots.com/open/personasonto.owl#maxWeight>
+             <http://blankdots.com/open/personasonto.owl#minBustSize>
+             <http://blankdots.com/open/personasonto.owl#minFeetSize>
+             <http://blankdots.com/open/personasonto.owl#minHeight>
+             <http://blankdots.com/open/personasonto.owl#minWaistSize>
+             <http://blankdots.com/open/personasonto.owl#minWeight>
+           )
+] .
+[ rdf:type :AllDisjointClasses ;
+  :members ( <http://blankdots.com/open/personasonto.owl#DevelopmentDisability>
+             <http://blankdots.com/open/personasonto.owl#GustatoryImpairment>
+             <http://blankdots.com/open/personasonto.owl#HearingImpairment>
+             <http://blankdots.com/open/personasonto.owl#IntellectualImpairment>
+             <http://blankdots.com/open/personasonto.owl#MentalEmotionalDisorder>
+             <http://blankdots.com/open/personasonto.owl#SomatosensoryImpairment>
+             <http://blankdots.com/open/personasonto.owl#VisualImpairment>
+           )
+] .
