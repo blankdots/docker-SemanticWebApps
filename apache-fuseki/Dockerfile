@@ -17,7 +17,7 @@
 
 FROM java:8-jre-alpine
 
-MAINTAINER João M. da Silva <joao.silva@helsinki.fi>
+MAINTAINER Stefan Negru <stefan.negru@helsinki.fi>
 
 RUN apk add --update\
     && apk add --no-cache pwgen \
