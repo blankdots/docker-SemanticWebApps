@@ -1,4 +1,3 @@
-#WebVOWL Dockerfile v 0.1.0
 
 # Base image
 FROM centos:centos7
