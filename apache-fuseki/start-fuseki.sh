@@ -26,4 +26,4 @@ fi
 
 # If GOSU_USER was 0:0 exec command passed in args without gosu (assume already root)
 
-exec gosu nonroot:nonroot ./fuseki-server $FUSEKI_OPTS "$@"
+exec "$@"
