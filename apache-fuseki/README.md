@@ -1,33 +1,36 @@
-## DockerRecipe for Jena-Fuseki
+## Docker Container for Jena-Fuseki
 
-WIP
+Current container is based on https://registry.hub.docker.com/u/stain/jena-fuseki/
 
-Author: http://blankdots.com
+In order to make it more production friendly it adds:
+* gosu (running with limited permissions as non-root user) - https://github.com/tianon/gosu
+* configuration loader from file - and it provides two endpoints; one for test and one for working with
+* FUSEKI 2.5.0
 
-### Build Instructions
+### Run image
 
-For now using https://registry.hub.docker.com/u/stain/jena-fuseki/ is recommended
+Skip the build and just run with plain configuration:
+* `docker pull blankdots/jena-fuseki`
+* `docker run -p 3030:3030 blankdots/jena-fuseki` vanilla run
+* `docker run -p 3030:3030 -v /data/fuseki:/data/fuseki/fuseki_DB blankdots/jena-fuseki` run with volume attached
+* `docker run -p 3030:3030 -v /data/fuseki:/data/fuseki/fuseki_DB -d blankdots/jena-fuseki` run volume attached in detached mode
+* `docker run -p 3030:3030 -v /data/fuseki:/data/fuseki/fuseki_DB -e ADMIN_PASSWORD=pass blankdots/jena-fuseki` preset the password.
 
-### Licenses
+**A password will be generated if one not provided at runtime (see container logs).**
 
-The MIT License (MIT)
+For other parameters see: https://hub.docker.com/r/stain/jena-fuseki/
 
-Copyright (c) 2015 blankdots@gmail.com
+### Build and Configuration Instructions
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+The configuration of the store is done via the `config.ttl` file. which contains two datasets `/test` (in memory) and `/ds` (persistent on disk if the image is run with a volume attached) and provides two named graphs.
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+TO DO: provide other configuration scenarios. Some envisioned scenarios could be envisioned where:
+* an endpoint is used for just the sparql queries and there is one for uploading the data and materialising the results in the SPARQL endpoint;
+* there is a unuion model type of endpoint which provides via SPARQL materialised results of an inference type of endpoint (which only works in memory);
+* an endpoint that provides search based like functionalities;
+* etc.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+Data asscoiated to the configuration is present in the `data` folder.
+
+Once the configuration and associated data building the image is as follows:
+* `docker build -t blankdots/jena-fuseki .`
