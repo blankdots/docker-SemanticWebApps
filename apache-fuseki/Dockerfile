@@ -28,8 +28,8 @@ RUN apk add --update \
     && rm -rf /var/cache/apk/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_MD5 6d954d7c57602dfc131bf7fbcb75c71d
-ENV FUSEKI_VERSION 2.5.0
+ENV FUSEKI_MD5 65d4c73ea03c34c5930f1edab09d75e8
+ENV FUSEKI_VERSION 2.6.0
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
@@ -39,7 +39,7 @@ ENV FUSEKI_HOME /jena-fuseki
 
 WORKDIR /tmp
 # sha1 checksum
-RUN echo "$FUSEKI_MD5  apache-jena-fuseki-2.5.0.tar.gz" > apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.md5
+RUN echo "$FUSEKI_MD5  apache-jena-fuseki-2.6.0.tar.gz" > apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.md5
 # Download/check/unpack/move in one go (to reduce image size)
 RUN wget $FUSEKI_MIRROR/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
     || wget $FUSEKI_ARCHIVE/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
