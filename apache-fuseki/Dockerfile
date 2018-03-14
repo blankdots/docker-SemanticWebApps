@@ -20,16 +20,12 @@ FROM java:8-jre-alpine
 MAINTAINER Stefan Negru <stefan.negru@helsinki.fi>
 
 RUN apk add --update \
-    && apk add --no-cache pwgen \
-    && apk add --no-cache linux-headers \
-    && apk add --no-cache bash \
-    && apk add --no-cache ca-certificates \
-    && apk add --no-cache wget \
+    && apk add --no-cache pwgen linux-headers bash ca-certificates wget \
     && rm -rf /var/cache/apk/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_MD5 d88ddedbc05c5b6becc6b4b9ae518398
-ENV FUSEKI_VERSION 3.5.0
+ENV FUSEKI_MD5 37fa6d99c2d0b6546d708213b39bc540
+ENV FUSEKI_VERSION 3.6.0
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
@@ -39,7 +35,7 @@ ENV FUSEKI_HOME /jena-fuseki
 
 WORKDIR /tmp
 # sha1 checksum
-RUN echo "$FUSEKI_MD5  apache-jena-fuseki-3.5.0.tar.gz" > apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.md5
+RUN echo "$FUSEKI_MD5  apache-jena-fuseki-3.6.0.tar.gz" > apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.md5
 # Download/check/unpack/move in one go (to reduce image size)
 RUN wget $FUSEKI_MIRROR/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
     || wget $FUSEKI_ARCHIVE/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
