@@ -24,8 +24,8 @@ RUN apk add --update \
     && rm -rf /var/cache/apk/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_SHA512 e4102e31c6fdead110a54aeaf65d54d78d225f931ef4f5cd6a0c4a75b66077f2160c7db99944df5167956104967f3830860d8f2910e406967c87ec562f1f2038
-ENV FUSEKI_VERSION 3.8.0
+ENV FUSEKI_MD5 ef8a401d96b22b99c93bcd2f62bce35d
+ENV FUSEKI_VERSION 3.9.0
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
@@ -34,12 +34,12 @@ RUN mkdir /jena-fuseki
 ENV FUSEKI_HOME /jena-fuseki
 
 WORKDIR /tmp
-# sha1 checksum
-RUN echo "$FUSEKI_SHA512  apache-jena-fuseki-3.8.0.tar.gz" > apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.sha512
+# md5 checksum
+RUN echo "$FUSEKI_MD5  apache-jena-fuseki-3.9.0.tar.gz" > apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.md5
 # Download/check/unpack/move in one go (to reduce image size)
 RUN wget $FUSEKI_MIRROR/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
     || wget $FUSEKI_ARCHIVE/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
-    && sha512sum -c apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.sha512 \
+    && md5sum -c apache-jena-fuseki-$FUSEKI_VERSION.tar.gz.md5 \
     && tar zxf apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
     && mv apache-jena-fuseki-$FUSEKI_VERSION/* $FUSEKI_HOME \
     && rm apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
