@@ -24,8 +24,8 @@ RUN apk add --update \
     && rm -rf /var/cache/apk/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_SHA512 e934431a4b76c347c71480c620b19263b46cde359d3da508acffbe92ef21168eea2a17478f68e4b583a55a4e3a8b0c6b0e1b558ee8eba54bd777b3909669e7da
-ENV FUSEKI_VERSION 3.12.0
+ENV FUSEKI_SHA512 1960d3e057cdcaaa0811b33b57b86145fb0fb675eee1a6dd2d27a111313689e70ba8fa36b9ca66784cf9130ae5753bf50e32e82d9e3a7bba2786a0fc4ae7f056
+ENV FUSEKI_VERSION 3.13.1
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
@@ -45,7 +45,7 @@ RUN wget $FUSEKI_MIRROR/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz 
     && rm apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
     && cd $FUSEKI_HOME && rm -rf fuseki.war
 
-ENV GOSU_VERSION 1.10
+ENV GOSU_VERSION 1.11
 RUN set -x \
     && apk add --no-cache --virtual .gosu-deps \
         dpkg \
