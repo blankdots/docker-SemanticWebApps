@@ -5,7 +5,7 @@ Current container is based on https://registry.hub.docker.com/u/stain/jena-fusek
 In order to make it more production friendly it adds:
 * gosu (running with limited permissions as non-root user) - https://github.com/tianon/gosu
 * configuration loader from file - and it provides two endpoints; one for test and one for working with
-* FUSEKI 3.13.1
+* FUSEKI 3.14.0
 
 ### Run image
 

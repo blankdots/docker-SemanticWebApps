@@ -24,8 +24,8 @@ RUN apk add --update \
     && rm -rf /var/cache/apk/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_SHA512 1960d3e057cdcaaa0811b33b57b86145fb0fb675eee1a6dd2d27a111313689e70ba8fa36b9ca66784cf9130ae5753bf50e32e82d9e3a7bba2786a0fc4ae7f056
-ENV FUSEKI_VERSION 3.13.1
+ENV FUSEKI_SHA512 62ac07f70c65a77fb90127635fa82f719fd5f4f10339c32702ebd664227d78f7414233d69d5b73f25b033f2fdea37b8221ea498755697eea3c1344819e4a527e
+ENV FUSEKI_VERSION 3.14.0
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
@@ -82,7 +82,7 @@ COPY start-fuseki.sh /jena-fuseki/start-fuseki.sh
 
 COPY load.sh /jena-fuseki/
 COPY tdbloader /jena-fuseki/
-RUN chmod 755 /jena-fuseki/load.sh /jena-fuseki/tdbloader /jena-fuseki/start-fuseki.sh /docker-entrypoint.sh
+RUN chmod 755 /jena-fuseki/load.sh /jena-fuseki/tdbloader /jena-fuseki/start-fuseki.sh /docker-entrypoint.sh /jena-fuseki/fuseki-server
 
 # Config and data volume
 # The volume needs to be set after the directory has been created to avoid
