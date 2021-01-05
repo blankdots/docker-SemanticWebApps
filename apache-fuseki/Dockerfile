@@ -15,17 +15,16 @@
 
 # This Dockerfile was extended from https://hub.docker.com/r/stain/jena-fuseki/
 
-FROM java:8-jre-alpine
+FROM openjdk:14-jdk-slim-buster
 
-MAINTAINER Stefan Negru <stefan.negru@helsinki.fi>
-
-RUN apk add --update \
-    && apk add --no-cache pwgen linux-headers bash ca-certificates wget \
-    && rm -rf /var/cache/apk/*
+RUN apt-get update; \
+    apt-get install -y --no-install-recommends \
+    bash wget ca-certificates findutils coreutils pwgen procps gosu; \
+    rm -rf /var/lib/apt/lists/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_SHA512 62ac07f70c65a77fb90127635fa82f719fd5f4f10339c32702ebd664227d78f7414233d69d5b73f25b033f2fdea37b8221ea498755697eea3c1344819e4a527e
-ENV FUSEKI_VERSION 3.14.0
+ENV FUSEKI_SHA512 2b92f3304743da335f648c1be7b5d7c3a94725ed0a9b5123362c89a50986690114dcef0813e328126b14240f321f740b608cc353417e485c9235476f059bd380
+ENV FUSEKI_VERSION 3.17.0
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
@@ -45,27 +44,8 @@ RUN wget $FUSEKI_MIRROR/jena/binaries/apache-jena-fuseki-$FUSEKI_VERSION.tar.gz 
     && rm apache-jena-fuseki-$FUSEKI_VERSION.tar.gz \
     && cd $FUSEKI_HOME && rm -rf fuseki.war
 
-ENV GOSU_VERSION 1.11
-RUN set -x \
-    && apk add --no-cache --virtual .gosu-deps \
-        dpkg \
-        gnupg \
-        openssl \
-    && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
-    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
-    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" \
-    && export GNUPGHOME="$(mktemp -d)" \
-    && gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-    && pkill -9 gpg-agent \
-    && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-    && chmod +x /usr/local/bin/gosu \
-    && gosu nobody true \
-    && apk del .gosu-deps
-
 # Adding user without root privileges alongside a user group
-RUN addgroup -S nonroot \
-    && adduser -S -g nonroot nonroot
+RUN groupadd -r nonroot && useradd -r -g nonroot nonroot 
 
 # As "localhost" is often inaccessible within Docker container,
 # we'll enable basic-auth with a preset admin password
@@ -82,7 +62,8 @@ COPY start-fuseki.sh /jena-fuseki/start-fuseki.sh
 
 COPY load.sh /jena-fuseki/
 COPY tdbloader /jena-fuseki/
-RUN chmod 755 /jena-fuseki/load.sh /jena-fuseki/tdbloader /jena-fuseki/start-fuseki.sh /docker-entrypoint.sh /jena-fuseki/fuseki-server
+RUN chmod 755 /jena-fuseki/load.sh /jena-fuseki/tdbloader \
+    /jena-fuseki/start-fuseki.sh /docker-entrypoint.sh /jena-fuseki/fuseki-server
 
 # Config and data volume
 # The volume needs to be set after the directory has been created to avoid
