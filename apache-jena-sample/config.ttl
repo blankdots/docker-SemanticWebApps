@@ -1,0 +1,37 @@
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix text:    <http://jena.apache.org/text#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix skosxl:  <http://www.w3.org/2008/05/skos-xl#> .
+@prefix agent:   <http://schema.onki.fi/agent-schema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix spatial: <http://jena.apache.org/spatial#> .
+@prefix schema:  <http://schema.org/> .
+@prefix :        <#> .
+
+[] rdf:type fuseki:Server ;
+
+fuseki:services (
+  <#service1>
+) .
+
+# Declaration additional assembler items.
+[] ja:loadClass "org.apache.jena.tdb.TDB" .
+
+<#service1> rdf:type fuseki:Service ;
+    fuseki:name                       "fuseki" ;   # http://host:port/fuseki
+    fuseki:serviceQuery               "query" ;    # SPARQL query service
+    fuseki:serviceUpdate              "update" ;   # SPARQL update service
+    fuseki:serviceUpload              "upload" ;   # Non-SPARQL upload service
+    fuseki:serviceReadWriteGraphStore "data" ;     # SPARQL Graph store protocol
+    fuseki:serviceReadGraphStore      "data" ;     # SPARQL Graph store protocol (read only)
+    fuseki:dataset                    <#dataset1> ;
+    .
+
+<#dataset1> rdf:type tdb:DatasetTDB ;
+    tdb:location "/data/fuseki/fuseki_DB" ;
+    tdb:unionDefaultGraph true ;
+    .
