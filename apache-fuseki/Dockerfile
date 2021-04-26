@@ -23,8 +23,8 @@ RUN apt-get update; \
     rm -rf /var/lib/apt/lists/*
 
 # Update below according to https://jena.apache.org/download/
-ENV FUSEKI_SHA512 2b92f3304743da335f648c1be7b5d7c3a94725ed0a9b5123362c89a50986690114dcef0813e328126b14240f321f740b608cc353417e485c9235476f059bd380
-ENV FUSEKI_VERSION 3.17.0
+ENV FUSEKI_SHA512 c0b9ab61a57f2c0e027f9d1a07710a22e672eb87730a6460b0869f6a6997a2628703bd99b1590bccd38bdc2a0f78d7be17890b4b88f65ef5518c882c8736a6b3
+ENV FUSEKI_VERSION 4.0.0
 ENV FUSEKI_MIRROR http://www.eu.apache.org/dist/
 ENV FUSEKI_ARCHIVE http://archive.apache.org/dist/
 
